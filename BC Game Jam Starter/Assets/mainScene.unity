@@ -201,7 +201,7 @@ RectTransform:
   - {fileID: 1008901513}
   - {fileID: 1261912785}
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -221,7 +221,7 @@ GameObject:
   - component: {fileID: 985448549}
   - component: {fileID: 985448550}
   m_Layer: 0
-  m_Name: New Sprite
+  m_Name: Player
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -280,8 +280,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -6.56, y: -0.57, z: -0.030208789}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children:
-  - {fileID: 2121830733}
+  m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -608,7 +607,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1547280356
 Prefab:
@@ -807,6 +806,7 @@ GameObject:
   - component: {fileID: 2121830731}
   - component: {fileID: 2121830730}
   - component: {fileID: 2121830734}
+  - component: {fileID: 2121830735}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -871,11 +871,11 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 2121830729}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -9.969791}
+  m_LocalPosition: {x: -6.56, y: -0.57, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 985448547}
-  m_RootOrder: 0
+  m_Father: {fileID: 0}
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &2121830734
 MonoBehaviour:
@@ -891,3 +891,16 @@ MonoBehaviour:
   VisibleAreaRadius: 50
   IntermediateRatio: 0.1
   PixelGranularity: 16
+--- !u!114 &2121830735
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2121830729}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c30e1ca9f9e408c489e78279b140c854, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dampTime: 0.56
+  target: {fileID: 985448547}
