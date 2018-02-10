@@ -7,7 +7,12 @@ public class PixelScreenDistortion : MonoBehaviour {
     /// <summary>
     /// The visible area to show.
     /// </summary>
-    public float VisibleAreaRadius = 200;
+    public float VisibleAreaRadius = 50;
+
+    /// <summary>
+    /// The visible area to show.
+    /// </summary>
+    public float IntermediateRatio = 0.1f;
 
     /// <summary>
     /// How big should the "distorted" pixels be?
@@ -31,10 +36,13 @@ public class PixelScreenDistortion : MonoBehaviour {
     /// <param name="outputTexture">The texture we want to write to with our finished product.</param>
 	public void OnRenderImage(RenderTexture inputTexture, RenderTexture outputTexture)
     {
+        this.VisibleAreaRadius = Mathf.Max(this.VisibleAreaRadius, 0);
+
         this.pixelMaterial.SetFloat("_pixelGranularity", this.PixelGranularity);
         this.pixelMaterial.SetFloat("_radius", this.VisibleAreaRadius);
-        this.pixelMaterial.SetFloat("_cursorX", 100 + 200 * Mathf.Sin(UnityEngine.Time.time));
-        this.pixelMaterial.SetFloat("_cursorY", 200.0f);
+        this.pixelMaterial.SetFloat("_intermediateRatio", this.IntermediateRatio);
+        this.pixelMaterial.SetFloat("_cursorX", UnityEngine.Input.mousePosition.x);
+        this.pixelMaterial.SetFloat("_cursorY", inputTexture.height - UnityEngine.Input.mousePosition.y);
         this.pixelMaterial.SetFloat("_textureWidth", inputTexture.width);
         this.pixelMaterial.SetFloat("_textureHeight", inputTexture.height);
 
