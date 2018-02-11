@@ -4,7 +4,8 @@ using UnityEngine.UI;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class HowToSequence : MonoBehaviour {
+public class HowToSequence : MonoBehaviour
+{
 
     public Text instructionText;
     public string levelToLoad;
@@ -13,33 +14,35 @@ public class HowToSequence : MonoBehaviour {
     public Movement playerMovement;
     public GameObject arrowPlayer;
     public GameObject arrowPickUp;
-    
-	// Use this for initialization
-	void Start () {
+
+    // Use this for initialization
+    void Start()
+    {
 
         StartCoroutine("DoTutorial");
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+
+    }
 
     IEnumerator DoTutorial()
     {
         yield return new WaitForSeconds(1);
-        instructionText.text = "Wow, this is a funky dream you're having...";
-        yield return new WaitForSeconds(3);
-        instructionText.text = "Where are you anyway?";
-        yield return new WaitForSeconds(2);
+        yield return AnimateText("Wow, this is a funky dream you're having...");
+        yield return new WaitForSeconds(1);
+        yield return AnimateText("Where are you anyway?");
+        yield return new WaitForSeconds(1);
 
         //arrow
 
-        instructionText.text = "Wait, is that you over there? Why don't you try moving your mouse?";
-        yield return new WaitForSeconds(2);
+        yield return AnimateText("Wait, is that you over there?");
         arrowPlayer.SetActive(true);
         yield return new WaitForSeconds(2);
         arrowPlayer.SetActive(false);
+        yield return AnimateText("Why don't you try moving your mouse?");
 
 
         while (true)
@@ -52,16 +55,15 @@ public class HowToSequence : MonoBehaviour {
         }
 
         yield return new WaitForSeconds(0.25f);
-        instructionText.text = "Well, aren't you looking a little sleepy?";
+        yield return AnimateText("Well, aren't you looking a little sleepy?");
 
-        yield return new WaitForSeconds(3);
-        instructionText.text = "Hey, what's that over there?";
-        yield return new WaitForSeconds(2);
+        yield return new WaitForSeconds(1);
+        yield return AnimateText("Hey, what's that over there?");
         arrowPickUp.SetActive(true);
         yield return new WaitForSeconds(2);
         arrowPickUp.SetActive(false);
         yield return new WaitForSeconds(.25f);
-        instructionText.text = "Why don't you try moving your mouse again?";
+        yield return AnimateText("Why don't you try moving your mouse again?");
 
         while (true)
         {
@@ -73,9 +75,9 @@ public class HowToSequence : MonoBehaviour {
         }
 
         yield return new WaitForSeconds(.25f);
-        instructionText.text = "Ohh, shiny. Let's go check it out.";
-        yield return new WaitForSeconds(2.5f);
-        instructionText.text = "Use the arrow keys to move.";
+        yield return AnimateText("Ohh, shiny. Let's go check it out.");
+        yield return new WaitForSeconds(1);
+        yield return AnimateText("Use the arrow keys to move.");
 
         while (true)
         {
@@ -87,27 +89,22 @@ public class HowToSequence : MonoBehaviour {
         }
 
         yield return new WaitForSeconds(1);
-        instructionText.text = "Nice!";
-        yield return new WaitForSeconds(1.5f);
-        instructionText.text = "Think you can find them all before you wake up?";
+        yield return AnimateText("Nice!");
+        yield return new WaitForSeconds(.5f);
+        yield return AnimateText("Think you can find them all before you wake up?");
         yield return new WaitForSeconds(3);
         SceneManager.LoadScene(levelToLoad);
 
     }
 
-
-    // Hey, what's that over there? 
-    // Why don't you try moving your mouse over there?
-
-    // Function to make arrow blink over pickup
-
-    // Some crap that checks if mouse is over treasure or not
-
-    // if mouse is over treasure, text: Great! Now come pick this up
-
-    // Some crap that checks that the piece is picked up
-
-    // if picked up, text: Alright, now can you find them all before you wake up?
-
-    // LoadNextScene - Regular Gameplay
+    IEnumerator AnimateText(string strComplete)
+    {
+        int i = 0;
+        instructionText.text = "";
+        while (i < strComplete.Length)
+        {
+            instructionText.text += strComplete[i++];
+            yield return new WaitForSeconds(0.1f);
+        }
+    }
 }

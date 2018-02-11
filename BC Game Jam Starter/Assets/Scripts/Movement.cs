@@ -2,11 +2,15 @@
 using System.Collections.Generic;
 using UnityEngine.UI;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Movement : MonoBehaviour {
 
+    public static int totalScore;
+
     public float speed;
     public Text countText;
+    public string levelToLoad;
 
     private Rigidbody2D rb2d;
     private int count;
@@ -31,6 +35,8 @@ public class Movement : MonoBehaviour {
         Vector2 inputVector = new Vector2(moveHorizontal, moveVertical);
 		
         rb2d.velocity = inputVector * speed;
+
+        GetComponent<Animator>().SetBool("IsMoving", inputVector.magnitude > 0.01);
 	}
 
     void OnTriggerEnter2D(Collider2D other)
@@ -46,6 +52,11 @@ public class Movement : MonoBehaviour {
     void SetCountText()
     {
         countText.text = "Count: " + count.ToString();
+        if (count >= 5)
+        {
+            totalScore = count;
+            SceneManager.LoadScene(levelToLoad);
+        }
     }
 
     public int GetCount()

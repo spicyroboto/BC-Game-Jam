@@ -5,6 +5,8 @@ using UnityEngine.SceneManagement;
 
 public class CountdownTimer : MonoBehaviour
 {
+    public static float globalTimer;
+
     public float timeRemaining = 5;
     public Text timerText;
     public string levelToLoad;
@@ -29,6 +31,7 @@ public class CountdownTimer : MonoBehaviour
     private void SubtractTimeLeft(float delta)
     {
         timeRemaining -= delta;
+        globalTimer = timeRemaining;
     }
 
     private void GameOver()
