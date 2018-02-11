@@ -48,4 +48,8 @@ public class Movement : MonoBehaviour {
         countText.text = "Count: " + count.ToString();
     }
 
+    public int GetCount()
+    {
+        return count;
+    }
 }
