@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 
 public class GameOver : MonoBehaviour
 {
+    private bool distoring;
 
     public Text instructionText;
     public Text finalScore;
@@ -29,16 +30,14 @@ public class GameOver : MonoBehaviour
 
     IEnumerator RunEnding()
     {
-        yield return new WaitForSeconds(1); 
-        instructionText.text = "*yawn*, oh man that such a weird dream.";
-        yield return new WaitForSeconds(2);
-        instructionText.text = "I think I won?";
-        yield return new WaitForSeconds(2);
+        yield return new WaitForSeconds(1);
+        yield return AnimateText("* yawn*, oh man that such a weird dream.");
+        yield return new WaitForSeconds(1);
+        yield return AnimateText("I think I won?");
+        yield return new WaitForSeconds(1);
 
         //display score
-        finalScore.text = "Final Score:  count - " + Movement.totalScore + " + " + "time remaining - " + (int)CountdownTimer.globalTimer;
-        yield return new WaitForSeconds(5f);
-        finalScore.text = "Final Score: " + (Movement.totalScore + (int)CountdownTimer.globalTimer);
+        yield return AnimateText("Final Score: " + (Movement.totalScore + (int)CountdownTimer.globalTimer));
         yield return new WaitForSeconds(2);
 
         restartButton.SetActive(true);
@@ -47,6 +46,42 @@ public class GameOver : MonoBehaviour
 
     public void RestartGame()
     {
+        // Don't start two coroutines
+        if (distoring == true) { return; }
+        distoring = true;
+
+        StartCoroutine("SceneDistortion");      
+    }
+
+    IEnumerator AnimateText(string strComplete)
+    {
+        int i = 0;
+        instructionText.text = "";
+        while (i < strComplete.Length)
+        {
+            instructionText.text += strComplete[i++];
+            yield return new WaitForSeconds(0.1f);
+        }
+    }
+
+    IEnumerator SceneDistortion()
+    {
+        var distortion = GetComponent<PixelScreenDistortion>();
+        float timePassed = 0;
+
+        while (true)
+        {
+            if (timePassed > 3.4f)
+            {
+                break;
+            }
+
+            timePassed += Time.deltaTime;
+
+            distortion.PixelGranularity = 16.0f * (timePassed / 3.4f);
+
+            yield return new WaitForEndOfFrame();
+        }
         Movement.totalScore = 0;
         CountdownTimer.globalTimer = 60;
         SceneManager.LoadScene(levelToLoad);
