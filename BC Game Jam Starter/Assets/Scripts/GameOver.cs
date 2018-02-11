@@ -31,9 +31,16 @@ public class GameOver : MonoBehaviour
     IEnumerator RunEnding()
     {
         yield return new WaitForSeconds(1);
-        yield return AnimateText("* yawn*, oh man that such a weird dream.");
+        yield return AnimateText("* yawn*, oh man that was such a weird dream.");
         yield return new WaitForSeconds(1);
-        yield return AnimateText("I think I won?");
+        if (Movement.totalScore >= 5)
+        {
+            yield return AnimateText("I think I won?");
+        }
+        else
+        {
+            yield return AnimateText("I don't think I got them all.");
+        }
         yield return new WaitForSeconds(1);
 
         //display score

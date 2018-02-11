@@ -36,7 +36,7 @@ public class CountdownTimer : MonoBehaviour
 
     private void GameOver()
     {
-        if (timeRemaining <= 0)
+        if (timeRemaining <= 1)
             SceneManager.LoadScene(levelToLoad);
     }
     
