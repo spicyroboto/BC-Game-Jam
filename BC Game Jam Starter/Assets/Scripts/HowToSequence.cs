@@ -11,6 +11,8 @@ public class HowToSequence : MonoBehaviour {
     public Transform player;
     public Transform pickup;
     public Movement playerMovement;
+    public GameObject arrowPlayer;
+    public GameObject arrowPickUp;
     
 	// Use this for initialization
 	void Start () {
@@ -34,6 +36,11 @@ public class HowToSequence : MonoBehaviour {
         //arrow
 
         instructionText.text = "Wait, is that you over there? Why don't you try moving your mouse?";
+        yield return new WaitForSeconds(2);
+        arrowPlayer.SetActive(true);
+        yield return new WaitForSeconds(2);
+        arrowPlayer.SetActive(false);
+
 
         while (true)
         {
@@ -50,6 +57,10 @@ public class HowToSequence : MonoBehaviour {
         yield return new WaitForSeconds(3);
         instructionText.text = "Hey, what's that over there?";
         yield return new WaitForSeconds(2);
+        arrowPickUp.SetActive(true);
+        yield return new WaitForSeconds(2);
+        arrowPickUp.SetActive(false);
+        yield return new WaitForSeconds(.25f);
         instructionText.text = "Why don't you try moving your mouse again?";
 
         while (true)

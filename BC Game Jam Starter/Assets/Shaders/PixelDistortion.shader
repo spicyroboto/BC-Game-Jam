@@ -52,11 +52,11 @@
 				fixed4 col = tex2D(_MainTex, i.uv);
 				float distFromCursor = sqrt(pow((i.vertex.xy.x - _cursorX), 2.0) + pow((i.vertex.xy.y - _cursorY), 2.0));
 				if (distFromCursor > _radius) {
-					col = tex2D(_MainTex, float2(_pixelGranularity * floor(i.vertex.xy.x / _pixelGranularity) / _textureWidth, (1 - (_pixelGranularity * floor(i.vertex.xy.y / _pixelGranularity)) / _textureHeight)));
+					col = tex2D(_MainTex, float2(_pixelGranularity * floor((i.vertex.xy.x + (_pixelGranularity / 2)) / _pixelGranularity) / _textureWidth, (1 - (_pixelGranularity * floor((i.vertex.xy.y + (_pixelGranularity / 2)) / _pixelGranularity)) / _textureHeight)));
 				}
 				else if (distFromCursor > _radius - (_radius * _intermediateRatio)) {
 					float varyingGranularity = _pixelGranularity / 2;
-					col = tex2D(_MainTex, float2(varyingGranularity * floor(i.vertex.xy.x / varyingGranularity) / _textureWidth, (1 - (varyingGranularity * floor(i.vertex.xy.y / varyingGranularity)) / _textureHeight)));
+					col = tex2D(_MainTex, float2(varyingGranularity * floor((i.vertex.xy.x + (_pixelGranularity / 2)) / varyingGranularity) / _textureWidth, (1 - (varyingGranularity * floor((i.vertex.xy.y + (_pixelGranularity / 2)) / varyingGranularity)) / _textureHeight)));
 				}
 				return col;
 			}
