@@ -6,19 +6,37 @@ using UnityEngine.SceneManagement;
 
 public class GameOver : MonoBehaviour
 {
-    private bool distoring;
+    /// <summary>
+    /// Prevents restart game from being called more than once
+    /// </summary>
+    private bool distorting;
 
+    /// <summary>
+    /// Instruction text to be shown during sequence
+    /// </summary>
     public Text instructionText;
-    public Text finalScore;
-    public string levelToLoad;
-    public GameObject restartButton;
-    public Movement playerScore;
 
+    /// <summary>
+    /// Final score text
+    /// </summary>
+    public Text finalScore;
+
+    /// <summary>
+    /// Next scene to load
+    /// </summary>
+    /// <remarks>
+    /// Set this in the editor
+    /// </remarks>
+    public string levelToLoad;
+
+    /// <summary>
+    /// Button object that when pressed restarts the game
+    /// </summary>
+    public GameObject restartButton;
 
     // Use this for initialization
     void Start()
     {
-
         StartCoroutine("RunEnding");
     }
 
@@ -28,6 +46,9 @@ public class GameOver : MonoBehaviour
 
     }
 
+    /// <summary>
+    /// Coroutine that steps the player through the ending scene
+    /// </summary>
     IEnumerator RunEnding()
     {
         yield return new WaitForSeconds(1);
@@ -51,15 +72,24 @@ public class GameOver : MonoBehaviour
         
     }
 
+    /// <summary>
+    /// Allows player to restart the game while bypassing the tutorial
+    /// </summary>
     public void RestartGame()
     {
         // Don't start two coroutines
-        if (distoring == true) { return; }
-        distoring = true;
+        if (distorting == true) { return; }
+        distorting = true;
 
         StartCoroutine("SceneDistortion");      
     }
 
+    /// <summary>
+    /// Makes text appear on screen gradually
+    /// </summary>
+    /// <param name="strComplete">
+    /// The string to animate/show on screen
+    /// </param>
     IEnumerator AnimateText(string strComplete)
     {
         int i = 0;
@@ -71,6 +101,9 @@ public class GameOver : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Distorts the scene by pixelating over time
+    /// </summary>
     IEnumerator SceneDistortion()
     {
         var distortion = GetComponent<PixelScreenDistortion>();

@@ -6,37 +6,73 @@ using UnityEngine.SceneManagement;
 
 public class HowToSequence : MonoBehaviour
 {
-
+    /// <summary>
+    /// Instruction text to be shown during tutorial sequence
+    /// </summary>
     public Text instructionText;
+
+    /// <summary>
+    /// Next scene to load
+    /// </summary>
+    /// <remarks>
+    /// Set this in the editor
+    /// </remarks>
     public string levelToLoad;
+
+    /// <summary>
+    /// Reference to player. Used to update tutorial progression
+    /// </summary>
     public Transform player;
+
+    /// <summary>
+    /// Reference to an item player must pick up. Used to update tutorial progression
+    /// </summary>
     public Transform pickup;
+
+    /// <summary>
+    /// Reference to player speed/keyboard component
+    /// </summary>
     public Movement playerMovement;
+
+    /// <summary>
+    /// Arrow to be shown around player object
+    /// </summary>
     public GameObject arrowPlayer;
+
+    /// <summary>
+    /// Arrow to be shown around pickup object
+    /// </summary>
     public GameObject arrowPickUp;
 
-    // Use this for initialization
+    /// <summary>
+    /// Use this for initialization
+    /// </summary>
     void Start()
     {
-
         StartCoroutine("DoTutorial");
     }
 
-    // Update is called once per frame
+    /// <summary>
+    /// Update is called once per frame
+    /// </summary>
     void Update()
     {
 
     }
 
+    /// <summary>
+    /// Coroutine that steps the player through the tutorial
+    /// </summary>
     IEnumerator DoTutorial()
     {
+        playerMovement.MovementActive = false;
         yield return new WaitForSeconds(1);
         yield return AnimateText("Wow, this is a funky dream you're having...");
         yield return new WaitForSeconds(1);
         yield return AnimateText("Where are you anyway?");
         yield return new WaitForSeconds(1);
 
-        //arrow
+        // arrow appears after this point
 
         yield return AnimateText("Wait, is that you over there?");
         arrowPlayer.SetActive(true);
@@ -44,7 +80,7 @@ public class HowToSequence : MonoBehaviour
         arrowPlayer.SetActive(false);
         yield return AnimateText("Why don't you try moving your mouse?");
 
-
+        // player now able to move mouse
         while (true)
         {
             yield return new WaitForEndOfFrame();
@@ -78,6 +114,7 @@ public class HowToSequence : MonoBehaviour
         yield return AnimateText("Ohh, shiny. Let's go check it out.");
         yield return new WaitForSeconds(1);
         yield return AnimateText("Use the arrow keys to move.");
+        playerMovement.MovementActive = true;
 
         while (true)
         {
@@ -97,6 +134,12 @@ public class HowToSequence : MonoBehaviour
 
     }
 
+    /// <summary>
+    /// Makes text appear on screen gradually
+    /// </summary>
+    /// <param name="strComplete">
+    /// The string to animate/show on screen
+    /// </param>
     IEnumerator AnimateText(string strComplete)
     {
         int i = 0;
